@@ -3,12 +3,12 @@ import {
   Catch,
   ArgumentsHost,
   HttpException,
-  Logger,
 } from "@nestjs/common";
 import { Request, Response } from "express";
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   catch(exception: HttpException, host: ArgumentsHost) {
     const context = host.switchToHttp();
     const response = context.getResponse<Response>();

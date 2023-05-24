@@ -1,29 +1,22 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Post } from "./post.entity";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("users")
-export class User {
-  @PrimaryGeneratedColumn("uuid")
-  userId: string;
+@Entity("account")
+export class Account {
+  @PrimaryGeneratedColumn("increment")
+  id: number;
 
   @Column({ unique: true, type: "text" })
-  email: string;
+  username: string;
+
+  @Column({ type: "text" })
+  password: string;
+
+  @Column({ type: "text" })
+  role: string;
 
   @Column({ type: "text" })
   name: string;
 
-  @Column({ nullable: true, type: "text" })
-  avatar: string;
-
-  @Column({ length: 10, default: "author" })
-  role: "admin" | "author";
-
   @Column({ default: true })
   isActive: boolean;
-
-  @OneToMany(
-    () => Post,
-    post => post.author,
-  )
-  posts: Post[];
 }

@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
-import path = require("path");
 
 require("dotenv").config();
 
@@ -36,14 +36,6 @@ class ConfigService {
     return this.getValue("HASURA_ROOT_URL", true);
   }
 
-  public getGoogleClientID() {
-    return this.getValue("GOOGLE_CLIENT_ID", true);
-  }
-
-  public getGoogleAuthURI() {
-    return this.getValue("GOOGLE_AUTH_URI", true);
-  }
-
   public getTypeOrmConfig(): TypeOrmModuleOptions {
     return {
       type: "postgres",
@@ -52,15 +44,8 @@ class ConfigService {
       username: this.getValue("POSTGRES_USER"),
       password: this.getValue("POSTGRES_PASSWORD"),
       database: this.getValue("POSTGRES_DB"),
-      logging: true,
-      synchronize: true,
 
       entities: ["dist/entities/*.entity{.ts,.js}"],
-      migrations: [path.join(__dirname, "../migrations/*{.ts}")],
-      cli: {
-        migrationsDir: "src/migrations",
-      },
-      ssl: false,
     };
   }
 }
@@ -71,8 +56,6 @@ const configService = new ConfigService({
   "API_PORT",
   "API_ROOT_URL",
   "WEB_ADMIN_ROOT_URL",
-  "HASURA_ROOT_URL",
-  "GOOGLE_CLIENT_ID",
   "POSTGRES_USER",
   "POSTGRES_PASSWORD",
   "POSTGRES_DB",
